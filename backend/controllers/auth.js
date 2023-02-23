@@ -16,7 +16,10 @@ export const signup = async (req, res, next) => {
 export const signin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return next(createError(404, "user not found!"));
+    if (!user)
+      return res.status(200).json({
+        data: "not found",
+      });
 
     if (user.email !== req.body.email)
       return next(createError(404, "email mismatch!"));

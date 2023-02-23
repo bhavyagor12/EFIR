@@ -17,6 +17,10 @@ const userSchema = new Schema({
     required: true,
     minLength: 6,
   },
+  type: {
+    type: String,
+    required: true,
+  },
 });
 
 export default mongoose.model("User", userSchema);
