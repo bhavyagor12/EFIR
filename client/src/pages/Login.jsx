@@ -5,7 +5,9 @@ import logo from "../images/logo.png";
 import { AiFillEye } from "react-icons/ai";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
@@ -31,7 +33,7 @@ const Login = () => {
       });
       const content = await rawResponse.json();
       if (content.type === "user") {
-        console.log("going to home");
+        navigate("/user");
       } else if (content.type === "police") {
         console.log("going to police");
       } else {

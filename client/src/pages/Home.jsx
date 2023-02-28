@@ -1,20 +1,23 @@
 import React from "react";
 import ActionCards from "../components/ActionCards";
 import Banner from "../components/Banner";
+import Business from "../components/Business";
 import Footer from "../components/Footer";
 import Nav from "../components/Navbar";
 import Fir from "../images/FIleFIr.png";
+import hero from "../images/policeOffice.png";
 const Landing = () => {
   return (
-    <div className="bg-white">
-      <Nav />
+    <div className="bg-[#00040f]">
+      {/* <Nav /> */}
       <Banner />
+      <Business />
 
-      <section class="bg-white border-b pt-8">
-        <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-          Services for the Police:
+      <section class="pt-8">
+        <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white mb-16">
+          Services for the Police
         </h2>
-        <div class="container mx-auto flex flex-wrap items-center justify-between    pt-4 pb-12">
+        <div class="mx-auto flex flex-wrap items-center justify-around  gap-2  pt-4 pb-12">
           <ActionCards
             title="File a Fir"
             img={Fir}
@@ -37,11 +40,11 @@ const Landing = () => {
           />
         </div>
       </section>
-      <section class="bg-white border-b pt-4">
-        <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-          Services for the Citizens:
+      <section class="pt-4">
+        <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white mb-16">
+          Services for the Citizens
         </h2>
-        <div class="container mx-auto flex flex-wrap items-center justify-between    pt-4 pb-12">
+        <div class="mx-auto flex flex-wrap items-center justify-around  gap-2   pt-4 pb-12">
           <ActionCards
             title="Track a Fir"
             img={Fir}
