@@ -6,12 +6,22 @@ import Footer from "../components/Footer";
 import Nav from "../components/Navbar";
 import Fir from "../images/FIleFIr.png";
 import hero from "../images/policeOffice.png";
+import { Navigate, useNavigate } from "react-router-dom";
 const Landing = () => {
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/login");
+  };
   return (
     <div className="bg-[#00040f]">
       {/* <Nav /> */}
       <Banner />
       <Business />
+      <div className="flex items-center justify-center">
+        <button class="btn btn-primary" onClick={handleLogin}>
+          Login
+        </button>
+      </div>
 
       <section class="pt-8">
         <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white mb-16">

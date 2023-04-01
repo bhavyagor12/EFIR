@@ -6,23 +6,16 @@ export const features = [
   {
     id: "feature-1",
     icon: star,
-    title: "Rewards",
+    title: "100% Paperless",
     content:
-      "The best credit cards offer some tantalizing combinations of promotions and prizes",
+      "No need to store FIRs in physical form, we have replaced the traditional way to store FIRS.",
   },
   {
     id: "feature-2",
     icon: shield,
-    title: "100% Secured",
+    title: "100% Secure",
     content:
-      "We take proactive steps make sure your information and transactions are secure.",
-  },
-  {
-    id: "feature-3",
-    icon: send,
-    title: "Balance Transfer",
-    content:
-      "A balance transfer credit card can save you a lot of money in interest charges.",
+      "Unleashing the power of Blockchain and Smart contracts, data is full proof and consistent.",
   },
 ];
 
@@ -52,13 +45,11 @@ const Business = () => (
   <section id="features" className={layout.section}>
     <div className={layout.sectionInfo}>
       <h2 className={styles.heading2}>
-        You do the business, <br className="sm:block hidden" /> we’ll handle the
-        money.
+        Filing of FIRS, <br className="sm:block hidden" /> made simple and easy
       </h2>
       <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-        With the right credit card, you can improve your financial life by
-        building credit, earning rewards and saving money. But with hundreds of
-        credit cards on the market.
+        No need to worry about storing FIRs, we have replaced the traditional
+        way to write FIRS with a digital way to file FIRS.
       </p>
     </div>
 

@@ -8,5 +8,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: ["corporate", "corporate", "cmyk"],
+  },
+  plugins: [require("daisyui")],
 };

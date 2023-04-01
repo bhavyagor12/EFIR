@@ -7,10 +7,16 @@ const algorithm = "aes-256-cbc";
 
 // const key = crypto.randomBytes(32);
 // const fixedIV = Buffer.alloc(16, 0);
-const key = process.env.ENCDECKEY;
+const key = Buffer.from([
+  0x1c, 0xdd, 0xb9, 0x50, 0x13, 0x70, 0xf2, 0x03, 0x6b, 0x01, 0xc7, 0x8c, 0xd5,
+  0x58, 0x1c, 0x8e, 0xaa, 0xae, 0x29, 0x59, 0x3b, 0xc3, 0x97, 0x70, 0x12, 0x81,
+  0xe8, 0x18, 0x52, 0xa0, 0x6d, 0x98,
+]);
 
-const fixedIV = process.env.IV;
-
+const fixedIV = Buffer.from([
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00,
+]);
 export const compressString = (string) => {
   const str = string;
   const cipher = crypto.createCipheriv(algorithm, key, fixedIV);
@@ -52,6 +58,7 @@ export const getFileFromIPFS = async (req, res, next) => {
     for await (const chunk of stream) {
       content += chunk.toString();
     }
+    console.log(content);
     let decompressedStr = decompressString(content);
     let fileObj = JSON.parse(decompressedStr);
     res.status(200).send(fileObj);

@@ -16,37 +16,38 @@ const Login = () => {
     setPasswordShown(!passwordShown);
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
-    const userData = {
-      email,
-      password,
-    };
-    try {
-      const rawResponse = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-      const content = await rawResponse.json();
-      if (content.type === "user") {
-        navigate("/user");
-      } else if (content.type === "police") {
-        console.log("going to police");
-      } else {
-        Swal.fire({
-          title: "Error!",
-          text: "Entered credentials dont exist",
-          icon: "error",
-          confirmButtonText: "Retry",
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // e.preventDefault();
+    // console.log(`Email: ${email}, Password: ${password}`);
+    // const userData = {
+    //   email,
+    //   password,
+    // };
+    // try {
+    //   const rawResponse = await fetch("/api/auth/signin", {
+    //     method: "POST",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(userData),
+    //   });
+    //   const content = await rawResponse.json();
+    //   if (content.type === "user") {
+    //     navigate("/user");
+    //   } else if (content.type === "police") {
+    //     console.log("going to police");
+    //   } else {
+    //     Swal.fire({
+    //       title: "Error!",
+    //       text: "Entered credentials dont exist",
+    //       icon: "error",
+    //       confirmButtonText: "Retry",
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    navigate("/police");
   };
 
   return (
@@ -80,7 +81,7 @@ const Login = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="input input-bordered input-primary w-full"
                   placeholder="Email address"
                 />
               </div>
@@ -97,15 +98,15 @@ const Login = () => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                    className="input input-bordered input-primary w-full"
                     placeholder="Password"
                   />
                   <div className="absolute right-2 top-2">
                     <button onClick={togglePassword}>
                       {passwordShown ? (
-                        <AiFillEyeInvisible size={20} />
+                        <AiFillEyeInvisible size={30} />
                       ) : (
-                        <AiFillEye size={20} />
+                        <AiFillEye size={30} />
                       )}
                     </button>
                   </div>
@@ -113,10 +114,7 @@ const Login = () => {
               </div>
             </div>
             <div className="flex items-center justify-center">
-              <button
-                className="bg-[#AA5656] text-[#F1DBBF] font-[Poppins] py-2 px-6 rounded  hover:bg-[#F1DBBF] hover:text-[#AA5656] duration-500"
-                onClick={handleSubmit}
-              >
+              <button className="btn btn-primary" onClick={handleSubmit}>
                 Login
               </button>
             </div>
