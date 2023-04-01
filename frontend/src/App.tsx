@@ -18,6 +18,7 @@ const App = () => {
 			<div className="w-full h-screen flex justify-center items-center">
 				<h1 className="text-2xl text-black text-center font-bold">
 					Metamask or other EIP-1102 / EIP-1193 compliant wallet not found,
+          
 					<br />
 					Please install Metamask
 				</h1>
