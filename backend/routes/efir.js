@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.post("/storeFile", storeFileOnIPFS);
-router.get("/retrieveFile", getFileFromIPFS);
+router.post("/retrieveFile", getFileFromIPFS);
 router.post("/storeOnMongo", storeFileOnMongo);
 router.post("/retriveFromMongo", getFileFromMongo);
 export default router;

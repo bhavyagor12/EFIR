@@ -106,6 +106,7 @@ export const UserProvider = ({ children }) => {
     );
     const response = await deployedContract.retrieveDocument(0);
     console.log(response);
+    return response;
   };
 
   const checkIfWalletIsConnected = async () => {
