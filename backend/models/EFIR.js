@@ -7,14 +7,6 @@ const firSchema = new Schema({
     type: String,
     required: true,
   },
-  firDate: {
-    type: Date,
-    required: true,
-  },
-  firTime: {
-    type: String,
-    required: true,
-  },
   branch: {
     type: String,
     required: true,

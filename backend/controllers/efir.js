@@ -39,12 +39,12 @@ export const decompressString = (string) => {
 export const storeFileOnIPFS = async (req, res, next) => {
   //this function takes in the FIR json,stringifies it, compresses and encrypts it and stores it on IPFS
   try {
-    let getDocument = req.body.document || {};
+    let getDocument = req.body || {};
     let getDocumentString = JSON.stringify(getDocument);
     let compressedString = compressString(getDocumentString);
 
     const file = await ipfs.add(compressedString);
-    res.status(200).json({ status: "success", data: file.path });
+    res.status(200).json({ status: "success", documentHash: file.path });
   } catch (err) {
     res.send("error in storing file on IPFS");
     next(err);

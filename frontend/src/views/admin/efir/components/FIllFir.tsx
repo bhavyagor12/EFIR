@@ -4,10 +4,26 @@ import React, { useContext } from 'react'
 type Props = {}
 
 const FIllFir = (props: Props) => {
-  const {firData,setfirData,handleInputChange} = useContext(UserContext)
+  const {firData,setFirData,handleInputChange} = useContext(UserContext)
 
   const uploadData = async () => {
-
+    const response = await fetch('http://localhost:8000/api/efir/storeFile', {
+      method: 'POST',
+      body: JSON.stringify(firData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await response.json()
+    console.log(data);
+    setFirData({
+      ...firData,
+      documentHash: data.documentHash,
+    })
+    // setFirData({
+    //       ...firData,
+    //       documentHash:"QmT4Q8SFcD9rffE1J1Vz3YUmBrdDG2gCjyJR8qWejUyAmW",
+    // })
   }
   return (
     <div className='flex flex-col items-start w-full gap-y-3'>
@@ -35,6 +51,28 @@ const FIllFir = (props: Props) => {
               onChange={handleInputChange}
               name="district"
               value={firData.district}
+            />
+             <h1 className="text-bold text-xl tracking-[1.5px] ">
+              Police Name
+            </h1>
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered input-success w-full"
+              onChange={handleInputChange}
+              name="policeName"
+              value={firData.policeName}
+            />
+              <h1 className="text-bold text-xl tracking-[1.5px] ">
+              Police Designation
+            </h1>
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered input-success w-full"
+              onChange={handleInputChange}
+              name="policeDesignation"
+              value={firData.policeDesignation}
             />
             <h1 className="text-bold text-xl tracking-[1.5px] ">
               Year
@@ -287,7 +325,8 @@ const FIllFir = (props: Props) => {
              <h1 className="text-bold text-xl tracking-[1.5px] ">
               Suspect Phone Number
             </h1>
-            <textarea
+            <input
+                type="text"
               placeholder="Type here"
               className="textarea textarea-success  w-full"
               onChange={handleInputChange}

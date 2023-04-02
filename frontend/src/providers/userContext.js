@@ -9,10 +9,11 @@ export const UserProvider = ({ children }) => {
   const [isCorrectNetwork, setIsCorrectNetwork] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [contractAddress, setContractAddress] = useState(null);
   const [firData, setFirData] = useState({
     district: "",
     policeStation: "Mumbai",
-    year: "",
+    year: "2023",
     firNo: "",
     firDateTime: "",
     actsViolated: "",
@@ -121,6 +122,8 @@ export const UserProvider = ({ children }) => {
         firData,
         setFirData,
         handleInputChange,
+        contractAddress,
+        setContractAddress,
       }}
     >
       {children}
