@@ -9,6 +9,44 @@ export const UserProvider = ({ children }) => {
   const [isCorrectNetwork, setIsCorrectNetwork] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [firData, setFirData] = useState({
+    district: "",
+    policeStation: "Mumbai",
+    year: "",
+    firNo: "",
+    firDateTime: "",
+    actsViolated: "",
+    complainDescription: "",
+    placeOfOccurrence: "",
+    complaintName: "",
+    complaintFatherName: "",
+    complaintAddress: "",
+    complaintAddressType: "",
+    complaintPhone: "",
+    complaintEmail: "",
+    complaintGender: "",
+    complaintAge: "",
+    complaintOccupation: "",
+    complaintPassport: "",
+    complaintAadhar: "",
+    complaintPan: "",
+    policeName: "",
+    policeDesignation: "",
+    suspectName: "",
+    suspectAge: "",
+    suspectGender: "",
+    suspectAddress: "",
+    suspectPhone: "",
+    documentHash: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFirData({
+      ...firData,
+      [name]: value,
+    });
+  };
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -49,6 +87,10 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log(firData);
+  }, [firData]);
+
+  useEffect(() => {
     if (ethereum) {
       const getChain = async () => {
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -76,6 +118,9 @@ export const UserProvider = ({ children }) => {
         currentAccount,
         loading,
         isCorrectNetwork,
+        firData,
+        setFirData,
+        handleInputChange,
       }}
     >
       {children}
