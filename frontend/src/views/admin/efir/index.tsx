@@ -35,7 +35,7 @@ const EFirFilling = (props: Props) => {
     await contract.deployed();
     console.log(`Contract deployed at address: ${contract.address}`)
     setContractAddress(contract.address);
-    const deployedContract = new ethers.Contract(contract.address, EFIR.abi, signer);
+    const deployedContract = new ethers.Contract('0x0F2396760537445e1b4421B59943eA4F21e34C71', EFIR.abi, signer);
     const response = await deployedContract.storeDocument('QmQdPcL5a5PSvc6xDEy6qq4o3SxFjXtGxJjohBuqxg4kRL',"Mumbai" ,'Bhavya Gor','Tanya Mistry');
     console.log(response);
     const retrieveDocument = await deployedContract.retrieveDocument(0);
