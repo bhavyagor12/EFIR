@@ -2,6 +2,7 @@ import { UserContext } from "providers/userContext";
 import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import jsPDF from 'jspdf';
+import { useNavigate } from "react-router-dom";
 type Props = {};
 type mongoData = {
   firNo: string;
@@ -45,6 +46,7 @@ type firData = {
   year: "2023";
 };
 const RetrieveFir = (props: Props) => {
+  const navigate = useNavigate();
   const { fetchContract } = useContext(UserContext);
   const [address, setAddress] = React.useState<string>("");
   const [objVisible, setObjVisible] = React.useState<boolean>(false);
@@ -151,7 +153,16 @@ const RetrieveFir = (props: Props) => {
       doc.text(`${key}: ${firData[key]}`, 10, 10 + i * 10);
     });
   
-    doc.save('data.pdf');
+    doc.save('Fir.pdf');
+    Swal.fire({
+        title: "Success!",
+        text: "PDF generated successfully",
+        icon: "success",
+        confirmButtonText: "OK",
+
+    }).then(() => {
+        navigate("/home");
+    })
   }
 
   const generatePDF = () => {
