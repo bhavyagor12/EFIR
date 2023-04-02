@@ -1,7 +1,7 @@
 import { UserContext } from "providers/userContext";
 import React, { useContext } from "react";
 import Swal from "sweetalert2";
-
+import jsPDF from 'jspdf';
 type Props = {};
 type mongoData = {
   firNo: string;
@@ -142,6 +142,22 @@ const RetrieveFir = (props: Props) => {
     });
   };
 
+  const getPDF = (firData:any) => {
+    const doc = new jsPDF();
+    
+    const keys = Object.keys(firData);
+  
+    keys.forEach((key, i) => {
+      doc.text(`${key}: ${firData[key]}`, 10, 10 + i * 10);
+    });
+  
+    doc.save('data.pdf');
+  }
+
+  const generatePDF = () => {
+    getPDF(firData);
+  }
+
   const getFirData = async () => {
     const object = {
       hash: retrieveData.ipfsHash,
@@ -209,6 +225,7 @@ const RetrieveFir = (props: Props) => {
               >
                 Fetch EFIR Data
               </button>:
+              <>
               <div className="mockup-code">
               <pre data-prefix="$">
                 <code>Police Name: {firData.policeName}</code>
@@ -223,6 +240,13 @@ const RetrieveFir = (props: Props) => {
                 <code>Description: {firData.complainDescription}</code>
               </pre>
             </div>
+            <button
+            className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+            onClick={generatePDF}
+          >
+            Download PDF
+          </button>
+          </>
         }
             </>
           )}
