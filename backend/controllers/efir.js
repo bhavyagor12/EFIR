@@ -103,3 +103,15 @@ export const getFileFromMongo = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getAllFiles = async (req, res, next) => {
+  try {
+    const files = await EFIR.find();
+    res.status(200).json({ status: "success", files });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: "error", message: "Error in getting from DB" });
+    next(err);
+  }
+};
