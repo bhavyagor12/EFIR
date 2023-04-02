@@ -6,7 +6,8 @@ import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/tables";
 
-import EFIRFilling from "./views/admin/efir";
+import EFIRFilling from "./views/admin/efir-fill";
+import EFIRRetrieval from "./views/admin/efir-retrieve";
 // Auth Imports
 import SignIn from "views/auth/SignIn";
 
@@ -17,7 +18,8 @@ import {
   MdBarChart,
   MdPerson,
   MdLock,
-  MdUploadFile
+  MdUploadFile,
+  MdDownload
 } from "react-icons/md";
 
 const routes = [
@@ -31,9 +33,16 @@ const routes = [
   {
     name:"EFIR Filling",
     layout:"/admin",
-    path:"efir",
+    path:"fill-efir",
     icon:<MdUploadFile className="h-6 w-6" />,
     component: <EFIRFilling />,
+  },
+  {
+    name:"EFIR Retrieval",
+    layout:"/admin",
+    path:"efir-retrieval",
+    icon:<MdDownload className="h-6 w-6" />,
+    component: <EFIRRetrieval />,
   }
   // {
   //   name: "NFT Marketplace",

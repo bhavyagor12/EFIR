@@ -1,17 +1,18 @@
 import React, { useContext, useState } from 'react'
-
+import Swal from "sweetalert2";
 
 // import crypto from 'crypto';
 import EFIR from '../../../ethereum/build/contracts/EFIR.json';
 import { ContractFactory, ethers } from "ethers";
 import { UserContext } from 'providers/userContext';
 import FIllFir from './components/FIllFir';
+import { useNavigate } from 'react-router-dom';
 type Props = {}
 
 
 const EFirFilling = (props: Props) => {
-  const {firData,setfirData,handleInputChange,currentAccount,contractAddress,setContractAddress} = useContext(UserContext)
-  
+  const {firData,setFirData,handleInputChange,currentAccount,contractAddress,setContractAddress} = useContext(UserContext)
+  const navigate = useNavigate();
 
   async function deployContract() {
     const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
@@ -30,8 +31,71 @@ const EFirFilling = (props: Props) => {
     // console.log(retrieveDocument);
   }
 
-  const redirectHome = () => {
-    window.location.href = "/home"
+  const redirectHome = async () => {
+    const {firNo,policeStation} = firData;
+    console.log("this is fir no"+firNo)
+    console.log("this is police station"+policeStation)
+    const mongoData = {
+      firNo:firNo,
+      branch:policeStation,
+      contractAddress
+    }
+    const response = await fetch('http://localhost:8000/api/efir/storeOnMongo', {
+      method: 'POST',
+      body: JSON.stringify(mongoData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await response.json()
+    console.log(data.status);
+    if(data.status === "error"){
+      Swal.fire({
+              title: "Error!",
+              text: "Missing either FIR No or Police Station",
+              icon: "error",
+              confirmButtonText: "Retry",
+            }).then(()=>{setFirData({...firData,documentHash:""});navigate("/admin/fill-efir");})
+    }else{
+      Swal.fire({
+              title: "Success!",
+              text: "Contract Address stored on MongoDB",
+              icon: "success",
+              confirmButtonText: "Ok",
+            }).then(()=>{setFirData({
+              district: "",
+              policeStation: "Mumbai",
+              year: "2023",
+              firNo: "",
+              firDateTime: "",
+              actsViolated: "",
+              complainDescription: "",
+              placeOfOccurrence: "",
+              complaintName: "",
+              complaintFatherName: "",
+              complaintAddress: "",
+              complaintAddressType: "",
+              complaintPhone: "",
+              complaintEmail: "",
+              complaintGender: "",
+              complaintAge: "",
+              complaintOccupation: "",
+              complaintPassport: "",
+              complaintAadhar: "",
+              complaintPan: "",
+              policeName: "",
+              policeDesignation: "",
+              suspectName: "",
+              suspectAge: "",
+              suspectGender: "",
+              suspectAddress: "",
+              suspectPhone: "",
+              documentHash: "",
+            });navigate("/home");})
+      
+    }
+    
+    
   }
 
   return (

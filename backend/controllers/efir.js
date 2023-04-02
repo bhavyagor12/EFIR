@@ -73,18 +73,33 @@ export const getFileFromIPFS = async (req, res, next) => {
 
 export const storeFileOnMongo = async (req, res, next) => {
   try {
-    const { contractAddress, branch, firTime, firDate, firNo } = req.body;
+    const { contractAddress, branch, firNo } = req.body;
     const newEFIR = new EFIR({
       contractAddress,
       branch,
-      firTime,
-      firDate,
       firNo,
     });
     await newEFIR.save();
     res.status(200).json({ status: "success" });
   } catch (err) {
     res.status(500).json({ status: "error", message: "Error in saving to DB" });
+    next(err);
+  }
+};
+
+export const getFileFromMongo = async (req, res, next) => {
+  try {
+    const { contractAddress } = req.body;
+
+    const file = await EFIR.findOne({
+      contractAddress,
+    });
+    console.log(file);
+    res.status(200).json({ status: "success", file });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: "error", message: "Error in getting from DB" });
     next(err);
   }
 };
