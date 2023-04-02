@@ -3,6 +3,7 @@ import { brotliCompressSync, brotliDecompressSync } from "zlib";
 import crypto from "crypto";
 import * as IPFSClient from "ipfs-http-client";
 import { auth, ipfs } from "../server.js";
+import EFIR from "../models/EFIR.js";
 const algorithm = "aes-256-cbc";
 
 // const key = crypto.randomBytes(32);
@@ -66,6 +67,24 @@ export const getFileFromIPFS = async (req, res, next) => {
     res
       .status(500)
       .json({ status: "error", message: "Error in getting file from IPFS" });
+    next(err);
+  }
+};
+
+export const storeFileOnMongo = async (req, res, next) => {
+  try {
+    const { contractAddress, branch, firTime, firDate, firNo } = req.body;
+    const newEFIR = new EFIR({
+      contractAddress,
+      branch,
+      firTime,
+      firDate,
+      firNo,
+    });
+    await newEFIR.save();
+    res.status(200).json({ status: "success" });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: "Error in saving to DB" });
     next(err);
   }
 };
