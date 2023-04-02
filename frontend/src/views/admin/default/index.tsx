@@ -10,8 +10,25 @@ import ComplexTable from "views/admin/default/components/ComplexTable";
 import TaskCard from "views/admin/default/components/TaskCard";
 import tableDataCheck from "./variables/tableDataCheck";
 import tableDataComplex from "./variables/tableDataComplex";
+import { useEffect, useState } from "react";
+
+
 
 const Dashboard = () => {
+  const [firCount,setFirCount] = useState<string>('0');
+  const [firData,setFirData] = useState<any>([]);
+  const getFirData = async() =>{
+    const response = await fetch('http://localhost:8000/api/efir/getAllFiles')
+    const data = await response.json()
+    console.log(data);
+    setFirCount(data.files.length);
+    setFirData(data.files);
+  }
+
+  useEffect(() => {
+    getFirData()
+  }, [])
+  
   return (
     <div className="h-[100vh]" >
       {/* Card widget */}
@@ -21,7 +38,7 @@ const Dashboard = () => {
         <Widget
           icon={<IoDocuments className="h-6 w-6" />}
           title={"EFIRs filed"}
-          subtitle={"340"}
+          subtitle={firCount}
         />
         
         <Widget

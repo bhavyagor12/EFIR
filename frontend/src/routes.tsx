@@ -8,6 +8,7 @@ import DataTables from "views/admin/tables";
 
 import EFIRFilling from "./views/admin/efir-fill";
 import EFIRRetrieval from "./views/admin/efir-retrieve";
+import EFIRTransfer from './views/admin/efir-transfer';
 // Auth Imports
 import SignIn from "views/auth/SignIn";
 
@@ -21,7 +22,7 @@ import {
   MdUploadFile,
   MdDownload
 } from "react-icons/md";
-
+import {RiFileTransferLine} from 'react-icons/ri'
 const routes = [
   {
     name: "Home",
@@ -43,6 +44,13 @@ const routes = [
     path:"efir-retrieval",
     icon:<MdDownload className="h-6 w-6" />,
     component: <EFIRRetrieval />,
+  },
+  {
+    name:"EFIR Transfer",
+    layout:"/admin",
+    path:"efir-transfer",
+    icon:<RiFileTransferLine className="h-6 w-6" />,
+    component: <EFIRTransfer />,
   }
   // {
   //   name: "NFT Marketplace",
