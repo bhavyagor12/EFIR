@@ -108,7 +108,7 @@ const FIllFir = (props: Props) => {
               className="input input-bordered input-success w-full"
               onChange={handleInputChange}
               name="actsViolated"
-              value={firData.actViolated}
+              value={firData.actsViolated}
             />
              <h1 className="text-bold text-xl tracking-[1.5px] ">
               Date and Time
@@ -154,7 +154,7 @@ const FIllFir = (props: Props) => {
               className="input input-bordered input-success w-full"
               onChange={handleInputChange}
               name="complainantName"
-              value={firData.complainantName}
+              value={firData.complaintName}
             />
             <h1 className="text-bold text-xl tracking-[1.5px] ">
               Father's Name of Complaint
@@ -165,7 +165,7 @@ const FIllFir = (props: Props) => {
               className="input input-bordered input-success w-full"
               onChange={handleInputChange}
               name="complainantFatherName"
-              value={firData.complainantFatherName}
+              value={firData.complaintFatherName}
             />
             <h1 className="text-bold text-xl tracking-[1.5px] ">
               Complaint Address

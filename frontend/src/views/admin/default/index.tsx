@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 const Dashboard = () => {
   const [firCount,setFirCount] = useState<string>('0');
   const [firData,setFirData] = useState<any>([]);
+  const [totalFir,setFirTotal] = useState<number>(0);
   const getFirData = async() =>{
     const response = await fetch('http://localhost:8000/api/efir/getAllFiles')
     const data = await response.json()

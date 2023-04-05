@@ -11,25 +11,25 @@ type Props = {}
 
 
 const EFirFilling = (props: Props) => {
-  const {firData,setFirData,handleInputChange,currentAccount,contractAddress,setContractAddress} = useContext(UserContext)
+  const {firData,setFirData,handleInputChange,currentAccount,contractAddress,setContractAddress,deployContract,deployToSepolia} = useContext(UserContext)
   const navigate = useNavigate();
 
-  async function deployContract() {
-    const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
-    const signer = provider.getSigner();
-    const contractFactory = new ethers.ContractFactory(EFIR.abi, EFIR.bytecode, signer);
+  // async function deployContract() {
+  //   const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
+  //   const signer = provider.getSigner();
+  //   const contractFactory = new ethers.ContractFactory(EFIR.abi, EFIR.bytecode, signer);
    
-    const contract = await contractFactory.deploy(currentAccount);
+  //   const contract = await contractFactory.deploy(currentAccount);
     
-    await contract.deployed();
-    console.log(`Contract deployed at address: ${contract.address}`)
-    setContractAddress(contract.address);
-    const deployedContract = new ethers.Contract(contract.address, EFIR.abi, signer);
-    const response = await deployedContract.storeDocument(firData.documentHash,firData.policeStation,firData.complaintName,firData.policeName);
-    console.log(response);
-    // const retrieveDocument = await deployedContract.retrieveDocument(0);
-    // console.log(retrieveDocument);
-  }
+  //   await contract.deployed();
+  //   console.log(`Contract deployed at address: ${contract.address}`)
+  //   setContractAddress(contract.address);
+  //   const deployedContract = new ethers.Contract(contract.address, EFIR.abi, signer);
+  //   const response = await deployedContract.storeDocument(firData.documentHash,firData.policeStation,firData.complaintName,firData.policeName);
+  //   console.log(response);
+  //   // const retrieveDocument = await deployedContract.retrieveDocument(0);
+  //   // console.log(retrieveDocument);
+  // }
 
   const redirectHome = async () => {
     const {firNo,policeStation} = firData;

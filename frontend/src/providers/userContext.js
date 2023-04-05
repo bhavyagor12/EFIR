@@ -1,6 +1,8 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import EFIR from "../ethereum/build/contracts/EFIR.json";
+import reactdotenv from "react-dotenv";
+const { JsonRpcProvider } = require("@ethersproject/providers");
 export const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
@@ -10,34 +12,36 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [contractAddress, setContractAddress] = useState(null);
+
   const [firData, setFirData] = useState({
-    district: "",
+    district: "Borivali",
     policeStation: "Mumbai",
     year: "2023",
-    firNo: "",
+    firNo: "12345",
     firDateTime: "",
-    actsViolated: "",
-    complainDescription: "",
-    placeOfOccurrence: "",
-    complaintName: "",
-    complaintFatherName: "",
-    complaintAddress: "",
-    complaintAddressType: "",
-    complaintPhone: "",
-    complaintEmail: "",
-    complaintGender: "",
-    complaintAge: "",
-    complaintOccupation: "",
-    complaintPassport: "",
-    complaintAadhar: "",
-    complaintPan: "",
-    policeName: "",
-    policeDesignation: "",
-    suspectName: "",
-    suspectAge: "",
-    suspectGender: "",
-    suspectAddress: "",
-    suspectPhone: "",
+    actsViolated: "Section 372",
+    complainDescription:
+      "The suspect stole my wallet in front of Borivali station and escaped on a bike",
+    placeOfOccurrence: "Borivali Station(W)",
+    complaintName: "Jignesh Patel",
+    complaintFatherName: "Jigar Patel",
+    complaintAddress: "Andheri(W)",
+    complaintAddressType: "Permanent",
+    complaintPhone: "9765432109",
+    complaintEmail: "jigneshpatel@gmail.com",
+    complaintGender: "Male",
+    complaintAge: "35",
+    complaintOccupation: "Accountant",
+    complaintPassport: "12332412121",
+    complaintAadhar: "1234-1234-1223",
+    complaintPan: "1234-1234-1234",
+    policeName: "Bhavya Gor",
+    policeDesignation: "Inspector",
+    suspectName: "Unknown",
+    suspectAge: "Between 20-30",
+    suspectGender: "Male",
+    suspectAddress: "Unknown",
+    suspectPhone: "Unknown",
     documentHash: "",
   });
 
@@ -48,23 +52,56 @@ export const UserProvider = ({ children }) => {
       [name]: value,
     });
   };
+  const sepoliaNetwork = {
+    name: "sepolia",
+    chainId: 11155111,
+    ensAddress: null, // Replace with the ENS address if applicable
+  };
 
-  // async function deployContract() {
-  //   const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
-  //   const signer = provider.getSigner();
-  //   const contractFactory = new ethers.ContractFactory(EFIR.abi, EFIR.bytecode, signer);
+  const deployToSepolia = async () => {
+    console.log(process.env.REACT_APP_ALCHEMY_API_KEY);
+    const url = `https://eth-sepolia.g.alchemy.com/v2/${process.env.REACT_APP_ALCHEMY_API_KEY}`;
 
-  //   const contract = await contractFactory.deploy(currentAccount);
+    const provider = new ethers.providers.AlchemyProvider(
+      sepoliaNetwork,
+      process.env.REACT_APP_ALCHEMY_API_KEY
+    );
 
-  //   await contract.deployed();
-  //   console.log(`Contract deployed at address: ${contract.address}`)
-  //   setContractAddress(contract.address);
-  //   const deployedContract = new ethers.Contract(contract.address, EFIR.abi, signer);
-  //   const response = await deployedContract.storeDocument(firData.documentHash,firData.policeStation,firData.complaintName,firData.policeName);
-  //   console.log(response);
-  //   // const retrieveDocument = await deployedContract.retrieveDocument(0);
-  //   // console.log(retrieveDocument);
-  // }
+    // const provider = new ethers.providers.AlchemyProvider(
+    //   "https://eth-sepolia.g.alchemy.com/v2/" +
+    //     process.env.REACT_APP_ALCHEMY_API_KEY
+    // );
+
+    // const provider = new ethers.providers.AlchemyProvider(
+    //   "https://eth-sepolia.g.alchemy.com/v2/" +
+    //     process.env.REACT_APP_ALCHEMY_API_KEY,
+
+    // );
+
+    const signer = provider.getSigner();
+    const contractFactory = new ethers.ContractFactory(
+      EFIR.abi,
+      EFIR.bytecode,
+      signer
+    );
+    const contract = await contractFactory.deploy(currentAccount);
+    await contract.deployed();
+    console.log(`Contract deployed at address: ${contract.address}`);
+    setContractAddress(contract.address);
+    const deployedContract = new ethers.Contract(
+      contract.address,
+      EFIR.abi,
+      signer
+    );
+    const response = await deployedContract.storeDocument(
+      firData.documentHash,
+      firData.policeStation,
+      firData.complaintName,
+      firData.policeName
+    );
+    console.log(response);
+  };
+
   const deployContract = async () => {
     const provider = new ethers.providers.JsonRpcProvider(
       "http://localhost:8545"
@@ -186,6 +223,7 @@ export const UserProvider = ({ children }) => {
         setContractAddress,
         deployContract,
         fetchContract,
+        deployToSepolia,
       }}
     >
       {children}

@@ -44,6 +44,7 @@ type firData = {
   suspectName: string;
   suspectPhone: string;
   year: "2023";
+  
 };
 const RetrieveFir = (props: Props) => {
   const navigate = useNavigate();
@@ -92,6 +93,7 @@ const RetrieveFir = (props: Props) => {
     suspectName: "",
     suspectPhone: "",
     year: "2023",
+    
   });
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value);
@@ -185,7 +187,9 @@ const RetrieveFir = (props: Props) => {
     );
     setBoolFir(true);
     const data = await response.json();
-    console.log(data);
+    console.log("this is fir data")
+    setFirData(data);
+    setFirData({...data,documentHash:retrieveData.ipfsHash})
   };
   return (
     <div className="flex flex-col gap-y-2">

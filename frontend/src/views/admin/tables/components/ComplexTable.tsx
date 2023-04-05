@@ -14,10 +14,10 @@ import {
 } from "@tanstack/react-table";
 
 type RowObj = {
-  name: string;
-  status: string;
-  date: string;
-  progress: number;
+  firNo: string;
+	branch: string;
+	contractAddress: string;
+	status: string;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
@@ -28,10 +28,10 @@ export default function ComplexTable(props: { tableData: any }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   let defaultData = tableData;
   const columns = [
-    columnHelper.accessor("name", {
-      id: "name",
+    columnHelper.accessor("firNo", {
+      id: "firNo",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">NAME</p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">FIR NO</p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -50,21 +50,19 @@ export default function ComplexTable(props: { tableData: any }) {
         <div className="flex items-center">
           {info.getValue() === "Approved" ? (
             <MdCheckCircle className="text-green-500 me-1 dark:text-green-300" />
-          ) : info.getValue() === "Disable" ? (
-            <MdCancel className="text-red-500 me-1 dark:text-red-300" />
-          ) : info.getValue() === "Error" ? (
-            <MdOutlineError className="text-amber-500 me-1 dark:text-amber-300" />
-          ) : null}
+          ) : info.getValue() === "In progress" ? (
+            <MdCancel className="text-blue-500 me-1 dark:text-blue-300" />
+          ):null}
           <p className="text-sm font-bold text-navy-700 dark:text-white">
             {info.getValue()}
           </p>
         </div>
       ),
     }),
-    columnHelper.accessor("date", {
-      id: "date",
+    columnHelper.accessor("contractAddress", {
+      id: "contractAddress",
       header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
+        <p className="text-sm font-bold text-gray-600 dark:text-white">Contract Address</p>
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -72,17 +70,17 @@ export default function ComplexTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor("progress", {
-      id: "progress",
+    columnHelper.accessor("branch", {
+      id: "branch",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
-          PROGRESS
+          Branch
         </p>
       ),
       cell: (info) => (
-        <div className="flex items-center">
-          <Progress width="w-[108px]" value={info.getValue()} />
-        </div>
+        <p className="text-sm font-bold text-navy-700 dark:text-white">
+        {info.getValue()}
+      </p>
       ),
     }),
   ]; // eslint-disable-next-line

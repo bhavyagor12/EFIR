@@ -1,34 +1,34 @@
 type RowObj = {
-	name: string;
+	firNo: string;
+	branch: string;
+	contractAddress: string;
 	status: string;
-	date: string;
-	progress: number;
 };
 
 const tableDataComplex: RowObj[] = [
 	{
-		name: 'Horizon UI PRO',
-		progress: 75.5,
+		firNo: 'Horizon UI PRO',
+		branch: "Mumbai",
 		status: 'Approved',
-		date: '12 Jan 2021'
+		contractAddress: '0x933bCbFE3264021529324a1C93cC893680D850C1'
 	},
 	{
-		name: 'Horizon UI Free',
-		progress: 25.5,
-		status: 'Disable',
-		date: '21 Feb 2021'
+		firNo: 'Horizon UI Free',
+		branch: "Pune",
+		status: 'In progress',
+		contractAddress: '0xb727058fa0B78057dE4268d43938d44987C120d3'
 	},
 	{
-		name: 'Weekly Update',
-		progress: 90,
-		status: 'Error',
-		date: '13 Mar 2021'
+		firNo: 'Weekly Update',
+		branch: "Pune",
+		status: 'In progress',
+		contractAddress: '0x8254058368922Be3A4C6DbE3c562832395b20593'
 	},
 	{
-		name: 'Marketplace',
-		progress: 50.5,
+		firNo: 'Marketplace',
+		branch: "Mumbai",
 		status: 'Approved',
-		date: '24 Oct 2022'
+		contractAddress: '0x8254058368922Be3C4C6DbE3c562832395b20593'
 	}
 ];
 export default tableDataComplex;
