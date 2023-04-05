@@ -17,13 +17,16 @@ import { useEffect, useState } from "react";
 const Dashboard = () => {
   const [firCount,setFirCount] = useState<string>('0');
   const [firData,setFirData] = useState<any>([]);
-  const [totalFir,setFirTotal] = useState<number>(0);
+  const [totalFir,setFirTotal] = useState<string>('0');
   const getFirData = async() =>{
     const response = await fetch('http://localhost:8000/api/efir/getAllFiles')
     const data = await response.json()
     console.log(data);
     setFirCount(data.files.length);
     setFirData(data.files);
+    let total = data.files.length+145;
+    total.toString();
+    setFirTotal(total);
   }
 
   useEffect(() => {
@@ -50,7 +53,7 @@ const Dashboard = () => {
         <Widget
           icon={<IoMdHome className="h-6 w-6" />}
           title={"Total EFIRs"}
-          subtitle={"485"}
+          subtitle={totalFir}
         />
       </div>
 
